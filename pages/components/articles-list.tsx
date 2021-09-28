@@ -39,15 +39,6 @@ const Spinner = () => (
   </div>
 );
 
-const Post = ({ id, title }: any) => (
-  <div className="post">
-    <div className="post-body">
-      <h4>{title}</h4>
-      <p>{title}</p>
-    </div>
-  </div>
-);
-
 class ArticleList extends Component<any, any> {
 
   state = {
