@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import '../styles/Home.module.css'
 import ArticleList from './components/articles-list'
+import Spinner from './components/spinner'
 import Navbar from './components/navbar'
 
 
@@ -55,7 +56,7 @@ const Home: NextPage = () => {
   return (
     <div>
       {categories && <Navbar {...categProps} {...changeArticles}/>}
-      {articles && <ArticleList {...articlesProps} />}
+      {articles ? articles && <ArticleList {...articlesProps}/> :  <Spinner />  }
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Spinner from './spinner'
 
 
 import React, { Component } from 'react';
@@ -7,14 +8,16 @@ class Navbar extends Component<any, any> {
 
     state = {
         categories: [],
-        isNavCollapsed: true
+        isNavCollapsed: true,
+        isLoading:false
     }
 
     constructor(props: any) {
         super(props);
         this.state = {
             categories: props.categories, // get all categories
-            isNavCollapsed:true
+            isNavCollapsed:true,
+            isLoading:false
         };
     }
 
@@ -23,15 +26,17 @@ class Navbar extends Component<any, any> {
 
     // Fetch the news articles in specific category and send to parent component
     onTrigger = (category:any) => {
+        this.setState({isLoading:true})
         fetch('/api/data', {
             method: 'POST',
             body: JSON.stringify({url : category.uri}),
             headers: { 'Content-Type': 'application/json'}
-          }).then((res) => res.json()).then((articles) => { this.props.changeArticles(articles.props.pageProps.posts) })
+          }).then((res) => res.json()).then((articles) => { this.setState({isLoading:false}); this.props.changeArticles(articles.props.pageProps.posts) })
     }
 
     render() {
         return (
+            <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-primary rounded">
             <a className="navbar-brand text-light font-weight-bolder" href="/">
               <span className="" style={{marginLeft:"5px"}}>LOGO</span>
@@ -46,6 +51,8 @@ class Navbar extends Component<any, any> {
             )}
             </div>
           </nav>
+          {this.state.isLoading ? <Spinner /> :  null}
+          </div>
         )
     }
 }
