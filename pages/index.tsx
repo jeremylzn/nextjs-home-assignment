@@ -6,8 +6,8 @@ import ArticleList from './components/articles-list'
 import React, { useState, useEffect } from 'react';
 
 const Home: NextPage = () => {
-  const [articles, setArticlesData]: any = useState(null)
-  const [categories, filterCategoriesData]: any = useState(null)
+  const [articles, setArticlesData]: any = useState(null) // Articles storing
+  // const [categories, filterCategoriesData]: any = useState(null)
 
 
   // useEffect to call the API once mounted and set the data
@@ -17,14 +17,14 @@ const Home: NextPage = () => {
       .then((articles) => {
         setArticlesData(articles.props.pageProps.posts)
 
-        var filteredCateg = articles.props.pageProps.posts.reduce((unique: any, o: any) => {
-          if (!unique.some((obj: any) => obj.categories.nodes[0].name === o.categories.nodes[0].name && obj.categories.nodes[0].uri === o.categories.nodes[0].uri)) {
-            unique.push(o);
-          }
-          return unique;
-        }, []);
+        // var filteredCateg = articles.props.pageProps.posts.reduce((unique: any, o: any) => {
+        //   if (!unique.some((obj: any) => obj.categories.nodes[0].name === o.categories.nodes[0].name && obj.categories.nodes[0].uri === o.categories.nodes[0].uri)) {
+        //     unique.push(o);
+        //   }
+        //   return unique;
+        // }, []);
 
-        filterCategoriesData(filteredCateg)
+        // filterCategoriesData(filteredCateg)
 
       })
   }, []);

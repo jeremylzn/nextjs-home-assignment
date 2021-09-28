@@ -10,12 +10,13 @@ class ArticleList extends Component<{}, { allArticles: any[], filteredArticles: 
   constructor(props: any) {
     super(props);
     this.state = {
-      allArticles: props.articles,
-      filteredArticles: props.articles,
+      allArticles: props.articles, // get all articles
+      filteredArticles: props.articles, // init filtered article with all articles
     };
   }
 
-  public handleSearch = (event: any) => {
+  // cheking search filter in all articles and set filtered article
+  public handleSearch = (event: any) => { 
     let value = event.target.value.toLowerCase();
     let result = [];
     result = this.state.allArticles.filter((data) => {
