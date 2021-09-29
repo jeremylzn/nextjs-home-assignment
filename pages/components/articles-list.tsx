@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,6 +5,9 @@ import styles from '../../styles/ArticlesList.module.css'
 import React, { Component } from 'react';
 import LazyLoad from "react-lazyload";
 import Spinner from './spinner'
+// import { BrowserRouter, Link, Route, Router, Switch, withRouter } from "react-router-dom";
+import Link from 'next/link'
+
 
 
 class ArticleList extends Component<any, any> {
@@ -53,7 +55,7 @@ class ArticleList extends Component<any, any> {
           <input type="text" className="form-control" placeholder="Search ..." onChange={(event) => this.handleSearch(event)} aria-label="Search" aria-describedby="addon-wrapping" />
         </div>
 
-        {this.state.filteredArticles.map((el: any, index: number) =>
+        {this.state.filteredArticles && this.state.filteredArticles.map((el: any, index: number) =>
           <LazyLoad
             key={index}
             height={100}
@@ -63,19 +65,23 @@ class ArticleList extends Component<any, any> {
             <div className="row" key={index}>
               <div className={styles.card + " mb-3"}>
                 <div className="row g-0">
-                  <div className="col-md-4">
+                  <div className="col-md-4 m-auto">
                     <img src={el.featuredImage.node.sourceUrl} className="img-fluid rounded-start" alt={el.featuredImage.node.altText} />
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
                       <h5 className="card-title text-center">{el.title}</h5>
-                      <p className="card-text mt-5"><FontAwesomeIcon icon={faUserEdit} /> : {el.author ? el.author.node.name : "Unknown"}</p>
-                      <p className="card-text mt-5"><small className="text-muted">{new Date(el.date).toLocaleDateString()}</small></p>
+                      <div dangerouslySetInnerHTML={{ __html: el.excerpt }}></div>
+                        <Link href={"/components/article-view/" + el.uri}><button className="btn btn-outline-danger rounded">Read more</button></Link>
+                          {/* <Route path="/article-view" component={ArticleView}></Route> */}
+                      <p className="card-text"><FontAwesomeIcon icon={faUserEdit} /> : {el.author ? el.author.node.name : "Unknown"}</p>
+                      <p className="card-text"><small className="text-muted">{new Date(el.date).toLocaleDateString()}</small></p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <hr />
           </LazyLoad>
         )
         }
