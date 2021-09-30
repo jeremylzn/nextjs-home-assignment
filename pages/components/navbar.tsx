@@ -38,7 +38,7 @@ class Navbar extends Component<any, any> {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-primary rounded">
-                    <a className="navbar-brand text-light font-weight-bolder" href="/">
+                    <a className="navbar-brand text-light font-weight-bolder">
                         <span className="" style={{ marginLeft: "5px" }}>LOGO</span>
                     </a>
                     <button className="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded={!this.state.isNavCollapsed ? true : false} aria-label="Toggle navigation" onClick={this.handleNavCollapse}>

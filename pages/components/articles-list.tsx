@@ -72,7 +72,7 @@ class ArticleList extends Component<any, any> {
                     <div className="card-body">
                       <h5 className="card-title text-center">{el.title}</h5>
                       <div dangerouslySetInnerHTML={{ __html: el.excerpt }}></div>
-                        <Link href={"/components/article-view/" + el.uri}><button className="btn btn-outline-danger rounded">Read more</button></Link>
+                        <Link href={"/components/article-view" + el.uri}><button className="btn btn-outline-danger rounded">Read more</button></Link>
                           {/* <Route path="/article-view" component={ArticleView}></Route> */}
                       <p className="card-text"><FontAwesomeIcon icon={faUserEdit} /> : {el.author ? el.author.node.name : "Unknown"}</p>
                       <p className="card-text"><small className="text-muted">{new Date(el.date).toLocaleDateString()}</small></p>

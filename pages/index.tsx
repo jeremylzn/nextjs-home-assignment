@@ -5,8 +5,8 @@ import ArticleList from './components/articles-list'
 import Spinner from './components/spinner'
 import Navbar from './components/navbar'
 
-
 import React, { useState, useEffect } from 'react';
+import { scrappingData } from './api/data'
 
 const Home: NextPage = (props:any) => {
   const [articles, setArticlesData]: any = useState(null) // Articles storing
@@ -15,7 +15,6 @@ const Home: NextPage = (props:any) => {
   // useEffect to call the API once mounted and set the data
   useEffect(() => {
     setArticlesData(props.articles.props.pageProps.posts)
-    console.log(props.articles.props.pageProps.posts)
     // filter categories for to get eahc unique categories
     var filteredCateg = props.articles.props.pageProps.posts.reduce((unique: any, o: any) => {
       if (!unique.some((obj: any) => obj.categories.nodes[0].name === o.categories.nodes[0].name && obj.categories.nodes[0].uri === o.categories.nodes[0].uri)) {
@@ -51,9 +50,15 @@ const Home: NextPage = (props:any) => {
   )
 }
 
+// const getDataFromTheWebsite = async () => {
+//   const res =  await fetch('http://localhost:3000/api/data', {method: 'POST', body: JSON.stringify({ url: '/' }), headers: { 'Content-Type': 'application/json' }})
+//   return await res.json()
+// }
+
 const getDataFromTheWebsite = async () => {
-  const res =  await fetch('http://localhost:3000/api/data', {method: 'POST', body: JSON.stringify({ url: '/' }), headers: { 'Content-Type': 'application/json' }})
-  return await res.json()
+  const response = await fetch(`https://populareverything.com/`)
+  const data = await scrappingData(response)
+  return JSON.parse(data)
 }
 
 export async function getStaticProps() {
